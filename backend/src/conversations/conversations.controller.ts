@@ -7,7 +7,7 @@ import { Role, Roles } from 'src/auth/types/role';
 export class ConversationsController {
   constructor(private conversationsService: ConversationsService) {}
 
-  @Get()
+  @Get('/:id')
   @Roles(Role.ADMIN)
   async getConversation(@Req() req: Request) {
     const { id } = req.params;

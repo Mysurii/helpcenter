@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TStatus } from '../types/status.type';
 import { TGroup } from '../types/group.type';
+import { Document } from 'mongoose';
 
 @Schema({
   timestamps: true,
