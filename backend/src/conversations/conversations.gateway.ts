@@ -9,6 +9,8 @@ import { CreateConversationDto } from './dto/create-conversation.dto';
 import { UpdateConversationDto } from './dto/update-conversation.dto';
 import { Server } from 'socket.io';
 import { Message } from './entities/message.entity';
+import { Conversation } from './entities/conversation.entity';
+import { TypingDto } from './dto/typing.dto';
 
 @WebSocketGateway()
 export class ConversationsGateway {
@@ -26,13 +28,10 @@ export class ConversationsGateway {
     this.server.sockets.emit('new_conversation', conversation);
   }
 
-  @SubscribeMessage('findOneConversation')
-  async findOne(@MessageBody() id: string) {
-    return await this.conversationsService.findOne(id);
-  }
-
   @SubscribeMessage('takeover')
-  async update(@MessageBody() updateConversationDto: UpdateConversationDto) {
+  async handleTakeover(
+    @MessageBody() updateConversationDto: UpdateConversationDto,
+  ) {
     const takenover = await this.conversationsService.takeover(
       updateConversationDto.id,
       updateConversationDto,
@@ -44,6 +43,11 @@ export class ConversationsGateway {
   @SubscribeMessage('send_message')
   async listenForMessages(@MessageBody() message: Message) {
     const sendMessage = await this.conversationsService.addMessage(message);
-    this.server.sockets.emit('receive_message', sendMessage);
+    this.server.to(message.conversationId).emit('receive_message', sendMessage);
+  }
+
+  @SubscribeMessage('is_typing')
+  async listenForTyping(@MessageBody() typingDto: TypingDto) {
+    this.server.to(typingDto.conversationId).emit('is_typing', typingDto);
   }
 }

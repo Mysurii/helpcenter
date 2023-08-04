@@ -19,7 +19,7 @@ export class ConversationsService {
     const newConversation = {
       ...createConversationDto,
       status: 'unhandled',
-    } satisfies Conversation;
+    };
 
     const createdConversation = await this.conversationModel.create(
       newConversation,

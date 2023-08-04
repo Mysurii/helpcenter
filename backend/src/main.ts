@@ -9,8 +9,8 @@ async function bootstrap() {
     origin: '*',
     credentials: true,
   });
-  app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api/v1');
+  app.useGlobalPipes(new ValidationPipe());
 
   const configService = app.get(ConfigService);
   const port = configService.get('port');

@@ -5,7 +5,7 @@ import { TGroup } from '../types/group.type';
 @Schema({
   timestamps: true,
 })
-export class Conversation {
+export class Conversation extends Document {
   @Prop({ type: Object })
   members: TGroup;
 
