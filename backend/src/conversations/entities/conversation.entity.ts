@@ -6,7 +6,7 @@ import { TGroup } from '../types/group.type';
   timestamps: true,
 })
 export class Conversation {
-  @Prop()
+  @Prop({ type: Object })
   members: TGroup;
 
   @Prop()
