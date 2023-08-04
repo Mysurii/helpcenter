@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MessagesModule } from './messages/messages.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConversationsModule } from './conversations/conversations.module';
 import configuration from './config/configuration';
 @Module({
   imports: [
@@ -18,8 +18,8 @@ import configuration from './config/configuration';
         uri: configService.get('databaseUrl'),
       }),
     }),
-    MessagesModule,
     AuthModule,
+    ConversationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

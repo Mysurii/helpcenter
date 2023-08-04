@@ -5,7 +5,12 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: '*',
+    credentials: true,
+  });
   app.useGlobalPipes(new ValidationPipe());
+  app.setGlobalPrefix('api/v1');
 
   const configService = app.get(ConfigService);
   const port = configService.get('port');
