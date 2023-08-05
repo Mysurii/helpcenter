@@ -6,4 +6,19 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  --dark: #17132a;
+  --primary: #e94560;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.bg-dark {
+  background-color: var(--dark);
+}
+
+.primary {
+  color: var(--primary);
 }

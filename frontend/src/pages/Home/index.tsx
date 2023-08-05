@@ -1,4 +1,4 @@
-import React from 'react'
+import withNavbarProvided from '@/common/components/layout/Navbar'
 
 function Home () {
   return (
@@ -6,4 +6,4 @@ function Home () {
   )
 }
 
-export default Home
+export default withNavbarProvided( Home )
