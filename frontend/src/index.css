@@ -18,6 +18,9 @@
 .bg-dark {
   background-color: var(--dark);
 }
+.bg-primary {
+  color: var(--dark);
+}
 
 .primary {
   color: var(--primary);
