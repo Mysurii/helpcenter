@@ -1,4 +1,3 @@
-import React from 'react'
 import Message from './Message'
 import { Input } from '@/common/components/ui/input'
 import { AiOutlineSend } from 'react-icons/ai'

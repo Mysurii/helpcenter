@@ -13,8 +13,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import loginSvg from '@/assets/svg/login.svg'
 import { RxAvatar } from 'react-icons/rx'
+import userService from "@/setup/services/UserService"
+import { useMutation } from "react-query"
+import useAuthStore from "@/setup/stores/auth.store"
+import { useNavigate } from "react-router-dom"
 
 function Login () {
+  const navigate = useNavigate()
+  const { decodeToken, user } = useAuthStore()
   const form = useForm<TLoginSchema>( {
     resolver: zodResolver( loginSchema ),
     defaultValues: {
@@ -23,15 +29,29 @@ function Login () {
     },
   } )
 
+  const mutation = useMutation( {
+    mutationFn: userService.login,
+    onSuccess: ( data ) => {
+      decodeToken( data.token )
+      console.log( user )
+      navigate( '/' )
+    },
+    onError: ( err ) => {
+      console.error( err )
+    }
+
+  } )
+
   const onSubmit = ( values: TLoginSchema ) => {
-    console.log( values )
+    mutation.mutate( values )
   }
 
   return (
     <div className="flex h-screen justify-center bg-dark text-white lg:bg-white lg:text-black">
       <div className="flex flex-col justify-center items-center p-8 w-full lg:w-1/3">
         <RxAvatar className="text-5xl text-violet-600" />
-        <p className="text-red-500 font-semibold my-3">Invalid credentials</p>
+        {mutation.isError && <p className="text-red-500 font-semibold my-3">Invalid credentials</p>}
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit( onSubmit )} className=" w-full max-w-lg">
             <FormField
