@@ -6,10 +6,10 @@ import mongoose, { Document } from 'mongoose';
 })
 export class Message extends Document {
   @Prop()
-  message: string;
+  text: string;
 
-  @Prop()
-  sender: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  senderId: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' })
   conversationId: string;
