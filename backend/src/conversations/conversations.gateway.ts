@@ -12,7 +12,7 @@ import { Message } from './entities/message.entity';
 import { Conversation } from './entities/conversation.entity';
 import { TypingDto } from './dto/typing.dto';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: '*' })
 export class ConversationsGateway {
   @WebSocketServer()
   server: Server;
@@ -43,7 +43,7 @@ export class ConversationsGateway {
   @SubscribeMessage('send_message')
   async listenForMessages(@MessageBody() message: Message) {
     const sendMessage = await this.conversationsService.addMessage(message);
-    this.server.to(message.conversationId).emit('receive_message', sendMessage);
+    this.server.to(message.conversation).emit('receive_message', sendMessage);
   }
 
   @SubscribeMessage('is_typing')

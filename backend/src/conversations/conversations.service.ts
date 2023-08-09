@@ -29,7 +29,13 @@ export class ConversationsService {
   }
 
   async findAll() {
-    return await this.conversationModel.find();
+    return await this.conversationModel.find().populate({
+      path: 'lastMessage',
+      populate: {
+        path: 'sender',
+        model: 'User',
+      },
+    });
   }
 
   async findOne(id: string): Promise<{

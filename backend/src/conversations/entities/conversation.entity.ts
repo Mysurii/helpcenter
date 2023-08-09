@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TStatus } from '../types/status.type';
 import { TGroup } from '../types/group.type';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 @Schema({
   timestamps: true,
@@ -12,6 +12,9 @@ export class Conversation extends Document {
 
   @Prop()
   status: TStatus;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Message' })
+  lastMessage: string;
 }
 
 export const ConversationSchema = SchemaFactory.createForClass(Conversation);

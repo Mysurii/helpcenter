@@ -9,10 +9,10 @@ export class Message extends Document {
   text: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  senderId: string;
+  sender: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' })
-  conversationId: string;
+  conversation: string;
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);
