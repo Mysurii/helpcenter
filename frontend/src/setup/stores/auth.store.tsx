@@ -7,6 +7,7 @@ interface AuthState {
   user: TUser | null
   decodeToken: ( token: string ) => void
   init: () => void
+  clearToken: () => void
 }
 
 const useAuthStore = create<AuthState>()( ( set ) => ( {
@@ -17,6 +18,8 @@ const useAuthStore = create<AuthState>()( ( set ) => ( {
     set( { accessToken } )
   },
   decodeToken: ( token: string ) => {
+    const test = jwtDecode<TUser>( token )
+    console.log( { test } )
     set( { user: jwtDecode<TUser>( token ) } )
     localStorage.setItem( 'access_token', token )
   },

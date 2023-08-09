@@ -1,6 +1,7 @@
 import Message from './Message'
 import { Input } from '@/common/components/ui/input'
 import { AiOutlineSend } from 'react-icons/ai'
+
 const message = {
   text: 'Hello world!',
   sender: {
@@ -9,11 +10,12 @@ const message = {
     email: 'joihnDoe@hotmail.com'
   },
   createdAt: new Date(),
-  conversationId: '123'
+  conversation: '123'
 }
 
 
 function Conversation () {
+
   return (
     <div className='p-8 h-[calc(100vh-60px)] w-full' >
       <div className='h-[calc(100vh-150px)] overflow-y-auto space-y-8 w-full' >

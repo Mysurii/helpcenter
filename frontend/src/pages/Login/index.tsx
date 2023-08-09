@@ -17,10 +17,11 @@ import userService from "@/setup/services/UserService"
 import { useMutation } from "react-query"
 import useAuthStore from "@/setup/stores/auth.store"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-hot-toast"
 
 function Login () {
   const navigate = useNavigate()
-  const { decodeToken, user } = useAuthStore()
+  const { decodeToken } = useAuthStore()
   const form = useForm<TLoginSchema>( {
     resolver: zodResolver( loginSchema ),
     defaultValues: {
@@ -33,7 +34,7 @@ function Login () {
     mutationFn: userService.login,
     onSuccess: ( data ) => {
       decodeToken( data.token )
-      console.log( user )
+      toast.success( 'Successfully logged in.' )
       navigate( '/' )
     },
     onError: ( err ) => {
