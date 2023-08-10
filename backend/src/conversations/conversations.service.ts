@@ -4,7 +4,7 @@ import { UpdateConversationDto } from './dto/update-conversation.dto';
 import { Conversation } from './entities/conversation.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Message } from './entities/message.entity';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class ConversationsService {
@@ -57,5 +57,16 @@ export class ConversationsService {
 
   async addMessage(message: Message) {
     return await this.messageModel.create(message);
+  }
+
+  async fetchMessages(id: string): Promise<Message[]> {
+    console.log(id);
+    const messages = await this.messageModel
+      .find({
+        conversation: new Types.ObjectId(id),
+      })
+      .populate('sender');
+
+    return messages;
   }
 }

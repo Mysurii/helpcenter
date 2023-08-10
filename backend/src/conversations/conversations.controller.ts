@@ -9,12 +9,10 @@ export class ConversationsController {
 
   @Get('/:id')
   @Roles(Role.ADMIN)
-  async getConversation(@Req() req: Request) {
+  async getMessages(@Req() req: Request) {
     const { id } = req.params;
 
-    const conversation = await this.conversationsService.findOne(id);
-
-    if (!conversation) throw new NotFoundException('Conversation not found');
+    const conversation = await this.conversationsService.fetchMessages(id);
 
     return conversation;
   }

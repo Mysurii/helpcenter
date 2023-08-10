@@ -27,7 +27,7 @@ export class AuthService {
     });
 
     const token = this.jwtService.sign({
-      id: user._id,
+      _id: user._id,
       name: user.name,
       email: user.email,
     });
@@ -48,7 +48,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
 
     const token = this.jwtService.sign({
-      id: user._id,
+      _id: user._id,
       name: user.name,
       email: user.email,
     });

@@ -13,6 +13,8 @@ export class Message extends Document {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' })
   conversation: string;
+
+  @Prop() createdAt?: Date;
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);
