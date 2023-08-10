@@ -1,6 +1,7 @@
 import moment from 'moment'
 import { getInitials } from "@/common/lib/utils"
 import { TMessage } from "@/common/types/message"
+import useChatStore from '@/setup/stores/chat.store'
 
 interface IProps {
   message: TMessage
@@ -9,13 +10,18 @@ interface IProps {
 
 
 export function Card ( { message, myConversation }: IProps ) {
+  const { setActiveChat } = useChatStore()
   const { text, sender } = message
   const initials = getInitials( sender.name )
   const relativeTime = moment( message.createdAt ).fromNow()
   const trunctuated = text.length > 30 ? text.substring( 0, 30 ) + '...' : text
 
+  const setActive = ( id: string ) => {
+    setActiveChat( id )
+  }
+
   return (
-    <div className="flex items-center p-3 h-[75px] border-b border-stone-200 cursor-pointer hover:bg-slate-900 hover:text-white">
+    <div className="flex items-center p-3 h-[75px] border-b border-stone-200 cursor-pointer hover:bg-slate-900 hover:text-white" onClick={() => setActive( message.conversation )}>
       <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-neutral-600">
         <span className="font-medium text-gray-300">{initials}</span>
       </div>

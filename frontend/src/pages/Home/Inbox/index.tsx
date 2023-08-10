@@ -7,17 +7,6 @@ import ChatService from "@/setup/services/ChatService"
 import { toast } from "react-hot-toast"
 import { Skeleton } from "@/common/components/ui/skeleton"
 
-const message = {
-  text: 'Hello world!',
-  sender: {
-    _id: '213',
-    name: 'John Doe',
-    email: 'joihnDoe@hotmail.com'
-  },
-  createdAt: new Date(),
-  conversation: '123'
-}
-
 function Inbox () {
 
   const { setConversations, myInbox, openInbox } = useChatStore()
@@ -37,7 +26,7 @@ function Inbox () {
 
 
   return (
-    <div className="w-full lg:w-1/6 h-[calc(100vh-60px)] border-r border-stone-200 overflow-y-auto">
+    <div className="w-full lg:w-1/6 h-[calc(100vh-60px)] border-r border-stone-200 overflow-y-auto" >
       <Tabs defaultValue="inbox">
         <TabsList className="grid w-full grid-cols-2 bg-dark text-white">
           <TabsTrigger value="inbox">Open</TabsTrigger>

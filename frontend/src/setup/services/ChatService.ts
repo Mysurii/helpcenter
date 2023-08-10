@@ -10,6 +10,7 @@ class ChatService extends BaseService {
 
   fetchMessages = async (id: string) => {
     const response = await this.api.get<TMessage[]>(`/conversations/${id}`)
+    console.log(response)
     return response.data
   }
 }
