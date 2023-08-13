@@ -6,6 +6,7 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from './dto/sign-in.dto';
+import { Role } from './types/role';
 
 @Injectable()
 export class AuthService {
@@ -54,5 +55,14 @@ export class AuthService {
     });
 
     return { token };
+  }
+
+  async getPortalUsers(): Promise<User[]> {
+    return await this.userModel.find({ role: Role.ADMIN });
+  }
+
+  async deleteUser(id: string): Promise<boolean> {
+    const response = await this.userModel.deleteOne({ _id: id });
+    return response.acknowledged;
   }
 }
