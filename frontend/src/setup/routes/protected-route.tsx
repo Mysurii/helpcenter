@@ -1,21 +1,27 @@
 import { ReactNode, FC } from 'react';
-import { Roles } from '@/common/types/roles'
+import { TRoles } from '@/common/types/roles'
 import { Navigate } from 'react-router-dom';
+import useAuthStore from '../stores/auth.store';
 
 interface IProps {
-  expectedRoles?: Roles[],
+  expectedRoles?: TRoles[],
   children: ReactNode
 }
 
 const ProtectedRoute: FC<IProps> = ( { expectedRoles, children } ) => {
   const isAuthorized = true;
-  const role = 'admin'
+  const { user } = useAuthStore()
   const areRolesRequired = !!expectedRoles?.length
 
-  const rolesMatch = areRolesRequired ? expectedRoles.includes( role ) : true
+
+  if ( !user ) {
+    return <Navigate to="/signin" replace />
+  }
+
+  const rolesMatch = areRolesRequired ? expectedRoles.includes( user?.role ) : true
 
   if ( !isAuthorized || !rolesMatch ) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/signin" replace />
   }
 
 

@@ -2,12 +2,19 @@ import Home from "@/pages/Home";
 import ProtectedRoute from "./protected-route";
 import { useRoutes } from "react-router-dom";
 import { Login, NotFound } from "@/pages";
+import Dashboard from "@/pages/Dashboard.ts";
 
 const routesConfig = [
   {
     path: '/',
     element: <ProtectedRoute>
       <Home />
+    </ProtectedRoute>
+  },
+  {
+    path: '/dashboard',
+    element: <ProtectedRoute>
+      <Dashboard />
     </ProtectedRoute>
   },
   {
