@@ -1,4 +1,4 @@
-import { Controller, Get, NotFoundException, Req } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Post, Req } from '@nestjs/common';
 import { ConversationsService } from './conversations.service';
 import { Request } from 'express';
 import { Role, Roles } from 'src/auth/types/role';
@@ -19,7 +19,7 @@ export class ConversationsController {
 
   @Get()
   @Roles(Role.ADMIN)
-  async getAllConversations() {
+  async getAll() {
     const conversation = await this.conversationsService.findAll();
 
     return conversation;

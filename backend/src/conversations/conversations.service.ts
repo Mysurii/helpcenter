@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConversationDto } from './dto/create-conversation.dto';
-import { UpdateConversationDto } from './dto/update-conversation.dto';
 import { Conversation } from './entities/conversation.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Message } from './entities/message.entity';
@@ -47,10 +46,10 @@ export class ConversationsService {
     return { conversation, messages };
   }
 
-  async takeover(id: string, updateConversationDto: UpdateConversationDto) {
+  async update(id: string, conversation: Conversation) {
     const updated = await this.conversationModel.findOneAndUpdate(
       { _id: id },
-      updateConversationDto,
+      conversation,
     );
     return updated;
   }

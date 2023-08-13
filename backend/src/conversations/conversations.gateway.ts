@@ -6,7 +6,6 @@ import {
 } from '@nestjs/websockets';
 import { ConversationsService } from './conversations.service';
 import { CreateConversationDto } from './dto/create-conversation.dto';
-import { UpdateConversationDto } from './dto/update-conversation.dto';
 import { Server } from 'socket.io';
 import { Message } from './entities/message.entity';
 import { Conversation } from './entities/conversation.entity';
@@ -29,15 +28,13 @@ export class ConversationsGateway {
   }
 
   @SubscribeMessage('takeover')
-  async handleTakeover(
-    @MessageBody() updateConversationDto: UpdateConversationDto,
-  ) {
-    const takenover = await this.conversationsService.takeover(
-      updateConversationDto.id,
-      updateConversationDto,
+  async handleTakeover(@MessageBody() conversation: Conversation) {
+    const takeover = await this.conversationsService.update(
+      conversation.id,
+      conversation,
     );
 
-    this.server.sockets.emit('handle_takeover', takenover);
+    this.server.sockets.emit('handle_takeover', conversation);
   }
 
   @SubscribeMessage('send_message')
@@ -49,5 +46,15 @@ export class ConversationsGateway {
   @SubscribeMessage('is_typing')
   async listenForTyping(@MessageBody() typingDto: TypingDto) {
     this.server.to(typingDto.conversationId).emit('is_typing', typingDto);
+  }
+
+  @SubscribeMessage('done')
+  async handleFinishConversation(@MessageBody() conversation: Conversation) {
+    const done = await this.conversationsService.update(
+      conversation.id,
+      conversation,
+    );
+
+    this.server.sockets.emit('handle_finish_conversation', conversation);
   }
 }
