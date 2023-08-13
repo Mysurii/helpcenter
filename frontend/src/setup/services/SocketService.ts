@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import { envVariables } from '../config'
 import { TMessage } from '@/common/types/message'
-import { TConversation } from '@/common/types/conversation'
+import { TConversation, TGroup } from '@/common/types/conversation'
 
 class SocketService {
   private socket
@@ -28,11 +28,23 @@ class SocketService {
   public onNewConversation(callback: (data: TConversation) => void) {
     this.socket.on('new_conversation', (data: TConversation) => callback(data))
   }
-  public emitMessage(message: string) {
+  public onTakeover(callback: (data: TConversation) => void) {
+    this.socket.on('handle_takeover', (data: TConversation) => callback(data))
+  }
+  public onFinishConversation(callback: (data: TConversation) => void) {
+    this.socket.on('handle_finish_conversation', (data: TConversation) => callback(data))
+  }
+  public emitMessage(message: TMessage) {
     this.socket.emit('send_message', message)
   }
   public emitTyping(conversationId: string, typing: boolean) {
     this.socket.emit('is_typing', { conversationId, typing })
+  }
+  public emitTakeover(conversationId: string, members: TGroup) {
+    this.socket.emit('takeover', { conversationId, members })
+  }
+  public emitFinishConversation(conversation: TConversation) {
+    this.socket.emit('done', conversation)
   }
 }
 

@@ -6,16 +6,16 @@ import useChatStore from "@/setup/stores/chat.store"
 import ChatService from "@/setup/services/ChatService"
 import { toast } from "react-hot-toast"
 import { Skeleton } from "@/common/components/ui/skeleton"
+import { useEffect } from "react"
+import SocketService from "@/setup/services/SocketService"
 
 function Inbox () {
 
-  const { setConversations, myInbox, openInbox } = useChatStore()
+  const { removeConversation, addConversation, setConversations, myInbox, openInbox, updateConversation } = useChatStore()
   const { user } = useAuthStore()
 
   const { isLoading } = useQuery( 'conversations', ChatService.fetchConversations, {
     onSuccess: ( data ) => {
-      console.log( data )
-      console.log( user )
       if ( user ) {
         setConversations( user._id, data )
       }
@@ -23,6 +23,22 @@ function Inbox () {
       toast.error( 'Could not fetch the conversations.' )
     }
   } )
+
+  useEffect( () => {
+    SocketService.onNewConversation( ( data ) => {
+      addConversation( data )
+    } )
+
+    SocketService.onFinishConversation( data => {
+      if ( !user ) return
+      removeConversation( user._id, data._id )
+    } )
+
+    SocketService.onTakeover( data => {
+      if ( !user ) return
+      updateConversation( user._id, data )
+    } )
+  }, [ user, addConversation, removeConversation, updateConversation ] )
 
 
   return (
