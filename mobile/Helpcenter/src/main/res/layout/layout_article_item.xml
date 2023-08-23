@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout_article_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground">
+
+
+    <TextView
+        android:id="@+id/tv_article_item"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/chat_description"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/article_details_arrow_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/backbutton_arrow"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/article_details_arrow_button_description"
+        android:rotation="180"
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_article_item"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backbutton_arrow" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

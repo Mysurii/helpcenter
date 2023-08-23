@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_chat"
+    app:startDestination="@id/ChatWithBotFragment">
+
+    <fragment
+        android:id="@+id/ChatWithBotFragment"
+        android:name="com.example.helpcenter.ui.chat.ChatWithBotFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_chat_with_bot">
+        <action
+            android:id="@+id/action_ChatWithBotFragment_to_ChatWithEmployeeFragment"
+            app:destination="@id/ChatWithEmployeeFragment" />
+        <action
+            android:id="@+id/action_ChatWithBotFragment_to_InboxFragment"
+            app:destination="@id/InboxFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ChatWithEmployeeFragment"
+        android:name="com.example.helpcenter.ui.chat.ChatWithEmployeeFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_chat_with_bot">
+        <action
+            android:id="@+id/action_ChatWithEmployeeFragment_to_ChatWithBotFragment"
+            app:destination="@id/ChatWithBotFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/InboxFragment"
+        android:name="com.example.helpcenter.ui.chat.InboxFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_inbox">
+        <action
+            android:id="@+id/action_InboxFragment_to_ChatWithEmployeeFragment"
+            app:destination="@id/ChatWithEmployeeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EmployeeFragment"
+        android:name="com.example.helpcenter.ui.chat.EmployeesFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_employees">
+        <action
+            android:id="@+id/action_EmployeesFragment_to_ChatFragment"
+            app:destination="@id/ChatWithEmployeeFragment" />
+    </fragment>
+
+
+
+</navigation>

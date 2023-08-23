@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Helpcenter_Support</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="chat_title">Vormats Chat</string>
+    <string name="chat_description">Welkom bij Vormats. Laten we je vraag op een rijtje zetten.</string>
+
+    <string name="help_and_support">Help and Support</string>
+    <string name="backbutton_content_description">A button to go back to the previous screen. Uses a backwards pointing arrow as an image.</string>
+    <string name="probleem_zelf_oplossen">Probleem zelf oplossen</string>
+    <string name="chat_met_een_expert">Chat met een expert</string>
+    <string name="contact">Contact</string>
+    <string name="inbox">Inbox</string>
+    <string name="doe_oefeningen">Doe oefeningen</string>
+    <string name="boek_een_webinar">Boek een webinar</string>
+    <string name="contactform_button">Contact</string>
+    <string name="bekijk_tips">Bekijk tips</string>
+
+
+</resources>
